@@ -13,43 +13,46 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-const[name,setName]=useState("")
-const[email,setEmail]=useState("")
-const[pass,setPass]=useState("")
-function handleName(e){
-  setName(e.target.value);
-}
-function  handleEmail(e){
-  setEmail(e.target.value);
-}
-function handlePassword(e){
-  setPassword(e.target.value);
-}
-function handlesubmit(){
-  if (!email.includes("@")){
-    alert("Please enter a valid email address");
-  
-  }
-   
- if(password.length < 8){
-  alert("password must be atleast 8 characters long");
- }
 
-}
 export default function Home() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleName(e) {
+    setName(e.target.value);
+  }
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!email.includes("@")) {
+      alert("Please enter a valid email address");
+      return;
+    }
+    if (password.length < 8) {
+      alert("Password must be at least 8 characters long");
+      return;
+    }
+    alert("Form submitted successfully!");
+    // You can add further logic here
+  }
+
   return (
     <>
-      Enter your name<br/>
-      <input type="text" onChange={handleName}/><br/>
-      Enter your email <br/>
-      <input type="text" onChange={handleEmail}/><br/>
-    
-      Enter your password<br/>
-      <input type="text" onChange={handlePassword}/><br/>
-
-      <input type="submit" onClick={handlesubmit}/>
-    
-
+      <form onSubmit={handleSubmit}>
+        Enter your name<br />
+        <input type="text" value={name} onChange={handleName} /><br />
+        Enter your email <br />
+        <input type="text" value={email} onChange={handleEmail} /><br />
+        Enter your password<br />
+        <input type="password" value={password} onChange={handlePassword} /><br />
+        <input type="submit" value="Submit" />
+      </form>
     </>
   );
 }
